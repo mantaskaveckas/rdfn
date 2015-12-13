@@ -35,12 +35,18 @@ class Theme
     private $title;
 
     /**
+     * @var css_source
+     *
+     * @ORM\Column(name="css_source", type="text")
+     */
+    private $css_source;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $created_at;
-
 
     /**
      * Get id

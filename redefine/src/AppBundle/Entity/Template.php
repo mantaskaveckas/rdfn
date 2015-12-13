@@ -37,12 +37,6 @@ class Template
      */
     private $template_slots;
 
-    public function __construct() {
-        $this->cvs = new ArrayCollection();
-        $this->themes = new ArrayCollection();
-        $this->template_slots = new ArrayCollection();
-    }
-
     /**
      * @var string
      *
@@ -51,12 +45,24 @@ class Template
     private $title;
 
     /**
+     * @var html_source HTML source of the template with wildcards to be replaced.
+     *
+     * @ORM\Column(name="html_source", type="text")
+     */
+    private $html_source;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $created_at;
 
+    public function __construct() {
+        $this->cvs = new ArrayCollection();
+        $this->themes = new ArrayCollection();
+        $this->template_slots = new ArrayCollection();
+    }
 
     /**
      * Get id

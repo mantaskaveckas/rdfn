@@ -38,11 +38,6 @@ class TemplateSlot
      */
     private $block_datas;
 
-    public function __construct() {
-        $this->block_datas = new ArrayCollection();
-        $this->blocks = new ArrayCollection();
-    }
-
     /**
      * @var string
      *
@@ -50,6 +45,17 @@ class TemplateSlot
      */
     private $title;
 
+    /**
+     * @var string Wildcard to be replaced in the Template.
+     *
+     * @ORM\Column(name="wildcard", type="string", length=255)
+     */
+    private $wildcard;
+
+    public function __construct() {
+        $this->block_datas = new ArrayCollection();
+        $this->blocks = new ArrayCollection();
+    }
 
     /**
      * Get id

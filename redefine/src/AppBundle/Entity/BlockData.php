@@ -40,7 +40,6 @@ class BlockData
      */
     private $created_at;
 
-
     /**
      * Get id
      *

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CV
  *
- * @ORM\Table(name="c_v")
+ * @ORM\Table(name="cv")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CVRepository")
  */
 class CV
@@ -39,10 +39,6 @@ class CV
      */
     private $block_datas;
 
-    public function __construct() {
-        $this->block_datas = new ArrayCollection();
-    }
-
     /**
      * @var string
      *
@@ -57,6 +53,9 @@ class CV
      */
     private $created_at;
 
+    public function __construct() {
+        $this->block_datas = new ArrayCollection();
+    }
 
     /**
      * Get id
