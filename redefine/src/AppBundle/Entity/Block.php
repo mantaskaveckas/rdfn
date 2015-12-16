@@ -42,7 +42,7 @@ class Block
     private $block_datas;
 
     /**
-     * @ORM\ManyToMany(targetEntity="TemaplteSlot", inversedBy="blocks")
+     * @ORM\ManyToMany(targetEntity="TemplateSlot", inversedBy="blocks")
      * @ORM\JoinTable(name="templateslots_blocks")
      */
     private $template_slots;

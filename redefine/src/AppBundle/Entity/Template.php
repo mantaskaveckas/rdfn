@@ -59,6 +59,7 @@ class Template
     private $created_at;
 
     public function __construct() {
+        $this->created_at = new \DateTime();
         $this->cvs = new ArrayCollection();
         $this->themes = new ArrayCollection();
         $this->template_slots = new ArrayCollection();
@@ -222,5 +223,29 @@ class Template
     public function getTemplateSlots()
     {
         return $this->template_slots;
+    }
+
+    /**
+     * Set htmlSource
+     *
+     * @param string $htmlSource
+     *
+     * @return Template
+     */
+    public function setHtmlSource($htmlSource)
+    {
+        $this->html_source = $htmlSource;
+
+        return $this;
+    }
+
+    /**
+     * Get htmlSource
+     *
+     * @return string
+     */
+    public function getHtmlSource()
+    {
+        return $this->html_source;
     }
 }

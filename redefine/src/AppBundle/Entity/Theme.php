@@ -129,4 +129,28 @@ class Theme
     {
         return $this->template;
     }
+
+    /**
+     * Set cssSource
+     *
+     * @param string $cssSource
+     *
+     * @return Theme
+     */
+    public function setCssSource($cssSource)
+    {
+        $this->css_source = $cssSource;
+
+        return $this;
+    }
+
+    /**
+     * Get cssSource
+     *
+     * @return string
+     */
+    public function getCssSource()
+    {
+        return $this->css_source;
+    }
 }

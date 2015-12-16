@@ -182,4 +182,28 @@ class TemplateSlot
     {
         return $this->block_datas;
     }
+
+    /**
+     * Set wildcard
+     *
+     * @param string $wildcard
+     *
+     * @return TemplateSlot
+     */
+    public function setWildcard($wildcard)
+    {
+        $this->wildcard = $wildcard;
+
+        return $this;
+    }
+
+    /**
+     * Get wildcard
+     *
+     * @return string
+     */
+    public function getWildcard()
+    {
+        return $this->wildcard;
+    }
 }
