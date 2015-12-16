@@ -23,6 +23,17 @@ class Block
     private $id;
 
     /**
+     * @ORM\OneToMany(targetEntity="Block", mappedBy="parent")
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Block", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     */
+    private $parent;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -48,6 +59,7 @@ class Block
     private $template_slots;
 
     public function __construct() {
+        $this->children = new ArrayCollection();
         $this->block_datas = new ArrayCollection();
         $this->template_slots = new ArrayCollection();
     }
@@ -176,5 +188,63 @@ class Block
     public function getTemplateSlots()
     {
         return $this->template_slots;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \AppBundle\Entity\Block $child
+     *
+     * @return Block
+     */
+    public function addChild(\AppBundle\Entity\Block $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \AppBundle\Entity\Block $child
+     */
+    public function removeChild(\AppBundle\Entity\Block $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Block $parent
+     *
+     * @return Block
+     */
+    public function setParent(\AppBundle\Entity\Block $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Block
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }
