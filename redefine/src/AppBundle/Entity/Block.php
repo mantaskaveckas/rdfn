@@ -34,6 +34,17 @@ class Block
     private $parent;
 
     /**
+     * @ORM\OneToMany(targetEntity="BlockData", mappedBy="block")
+     */
+    private $block_datas;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="TemplateSlot", inversedBy="blocks")
+     * @ORM\JoinTable(name="templateslots_blocks")
+     */
+    private $template_slots;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -48,15 +59,18 @@ class Block
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlockData", mappedBy="block")
+     * @var html_source HTML source of the block with variables to be replaced with real values.
+     *
+     * @ORM\Column(name="html_source", type="text")
      */
-    private $block_datas;
+    private $html_source;
 
     /**
-     * @ORM\ManyToMany(targetEntity="TemplateSlot", inversedBy="blocks")
-     * @ORM\JoinTable(name="templateslots_blocks")
+     * @var available_fields JSON array of used variable names in the html source of the Block.
+     *
+     * @ORM\Column(name="available_fields", type="text")
      */
-    private $template_slots;
+    private $available_fields;
 
     public function __construct() {
         $this->children = new ArrayCollection();
@@ -159,11 +173,11 @@ class Block
     /**
      * Add templateSlot
      *
-     * @param \AppBundle\Entity\TemaplteSlot $templateSlot
+     * @param \AppBundle\Entity\TemplateSlot $templateSlot
      *
      * @return Block
      */
-    public function addTemplateSlot(\AppBundle\Entity\TemaplteSlot $templateSlot)
+    public function addTemplateSlot(\AppBundle\Entity\TemplateSlot $templateSlot)
     {
         $this->template_slots[] = $templateSlot;
 
@@ -173,9 +187,9 @@ class Block
     /**
      * Remove templateSlot
      *
-     * @param \AppBundle\Entity\TemaplteSlot $templateSlot
+     * @param \AppBundle\Entity\TemplateSlot $templateSlot
      */
-    public function removeTemplateSlot(\AppBundle\Entity\TemaplteSlot $templateSlot)
+    public function removeTemplateSlot(\AppBundle\Entity\TemplateSlot $templateSlot)
     {
         $this->template_slots->removeElement($templateSlot);
     }
@@ -246,5 +260,53 @@ class Block
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Set htmlSource
+     *
+     * @param string $htmlSource
+     *
+     * @return Block
+     */
+    public function setHtmlSource($htmlSource)
+    {
+        $this->html_source = $htmlSource;
+
+        return $this;
+    }
+
+    /**
+     * Get htmlSource
+     *
+     * @return string
+     */
+    public function getHtmlSource()
+    {
+        return $this->html_source;
+    }
+
+    /**
+     * Set availableFields
+     *
+     * @param string $availableFields
+     *
+     * @return Block
+     */
+    public function setAvailableFields($availableFields)
+    {
+        $this->available_fields = $availableFields;
+
+        return $this;
+    }
+
+    /**
+     * Get availableFields
+     *
+     * @return string
+     */
+    public function getAvailableFields()
+    {
+        return $this->available_fields;
     }
 }
