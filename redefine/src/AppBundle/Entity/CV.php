@@ -24,13 +24,13 @@ class CV
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="cvs")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="Template", inversedBy="cvs")
-     * @ORM\JoinColumn(name="template_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="template_id", referencedColumnName="id", nullable=false)
      */
     private $template;
 
@@ -54,6 +54,7 @@ class CV
     private $created_at;
 
     public function __construct() {
+        $this->created_at = new \DateTime();
         $this->block_datas = new ArrayCollection();
     }
 

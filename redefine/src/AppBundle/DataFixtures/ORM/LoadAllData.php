@@ -6,6 +6,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Template;
 use AppBundle\Entity\TemplateSlot;
 use AppBundle\Entity\Block;
+use AppBundle\Entity\User;
+use AppBundle\Entity\CV;
 
 class LoadAllData implements FixtureInterface
 {
@@ -34,7 +36,7 @@ class LoadAllData implements FixtureInterface
         $block1_1->addTemplateSlot($templateSlot1_1);
         $block1_1->addTemplateSlot($templateSlot1_2);
         $block1_1->setHtmlSource('<p>{{ text_value }}</p>');
-        $block1_2->setAvailableFields('["text"]');
+        $block1_1->setAvailableFields('["text"]');
         $manager->persist($block1_1);
 
         $block1_2 = new Block();
@@ -44,6 +46,16 @@ class LoadAllData implements FixtureInterface
         $block1_2->setHtmlSource('<h2>{{ headline }}</h2><p>{{ text }}</p>');
         $block1_2->setAvailableFields('["headline","text"]');
         $manager->persist($block1_2);
+
+        $user1 = new User();
+        $user1->setEmail('testinis.meska@example.com');
+        $manager->persist($user1);
+
+        $cv1 = new CV();
+        $cv1->setUser($user1);
+        $cv1->setTitle('My great red cv');
+        $cv1->setTemplate($template1);
+        $manager->persist($cv1);
 
         $manager->flush();
     }
