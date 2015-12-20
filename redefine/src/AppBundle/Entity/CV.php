@@ -42,9 +42,16 @@ class CV
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255, unique=true)
+     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, unique=true)
+     */
+    private $url;
 
     /**
      * @var \DateTime
@@ -196,5 +203,29 @@ class CV
     public function getBlockDatas()
     {
         return $this->block_datas;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return CV
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 }

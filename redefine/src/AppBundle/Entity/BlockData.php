@@ -34,11 +34,17 @@ class BlockData
     private $template_slot;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\ManyToOne(targetEntity="Block", inversedBy="block_datas")
+     * @ORM\JoinColumn(name="block_id", referencedColumnName="id")
      */
-    private $created_at;
+    private $block;
+
+    /**
+     * @var data JSON array of used variable names and their values.
+     *
+     * @ORM\Column(name="data", type="text")
+     */
+    private $data;
 
     /**
      * Get id
@@ -120,5 +126,53 @@ class BlockData
     public function getTemplateSlot()
     {
         return $this->template_slot;
+    }
+
+    /**
+     * Set block
+     *
+     * @param \AppBundle\Entity\Block $block
+     *
+     * @return BlockData
+     */
+    public function setBlock(\AppBundle\Entity\Block $block = null)
+    {
+        $this->block = $block;
+
+        return $this;
+    }
+
+    /**
+     * Get block
+     *
+     * @return \AppBundle\Entity\Block
+     */
+    public function getBlock()
+    {
+        return $this->block;
+    }
+
+    /**
+     * Set data
+     *
+     * @param string $data
+     *
+     * @return BlockData
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 }

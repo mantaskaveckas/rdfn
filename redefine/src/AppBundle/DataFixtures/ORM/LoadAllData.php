@@ -8,6 +8,7 @@ use AppBundle\Entity\TemplateSlot;
 use AppBundle\Entity\Block;
 use AppBundle\Entity\User;
 use AppBundle\Entity\CV;
+use AppBundle\Entity\BlockData;
 
 class LoadAllData implements FixtureInterface
 {
@@ -54,8 +55,23 @@ class LoadAllData implements FixtureInterface
         $cv1 = new CV();
         $cv1->setUser($user1);
         $cv1->setTitle('My great red cv');
+        $cv1->setUrl('my_great_red_cv');
         $cv1->setTemplate($template1);
         $manager->persist($cv1);
+
+        $blockData1_1 = new BlockData();
+        $blockData1_1->setCV($cv1);
+        $blockData1_1->setTemplateSlot($templateSlot1_1);
+        $blockData1_1->setBlock($block1_1);
+        $blockData1_1->setData('["text": "Mano CV pats geriausias ir gražiausias, todėl esu tinkamas betono nešiotojo darbams."]');
+        $manager->persist($blockData1_1);
+
+        $blockData1_2 = new BlockData();
+        $blockData1_2->setCV($cv1);
+        $blockData1_2->setTemplateSlot($templateSlot1_1);
+        $blockData1_2->setBlock($block1_1);
+        $blockData1_2->setData('["text": "Antras blockas į tą patį template slotą."]');
+        $manager->persist($blockData1_2);
 
         $manager->flush();
     }
