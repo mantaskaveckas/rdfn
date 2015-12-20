@@ -10,6 +10,8 @@ namespace AppBundle\Service;
 class CVRenderService
 {
 	public function render($cv) {
-		
+		$template = $cv->getTemplate();
+
+		return $template->getHtmlSource();
 	}
 }
