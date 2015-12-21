@@ -36,8 +36,10 @@ class LoadAllData implements FixtureInterface
         $block1_1->setType(1);
         $block1_1->addTemplateSlot($templateSlot1_1);
         $block1_1->addTemplateSlot($templateSlot1_2);
-        $block1_1->setHtmlSource('<p>{{ text_value }}</p>');
-        $block1_1->setAvailableFields('["text"]');
+        $block1_1->setHtmlSource('<p>{{ text }}</p>');
+        $block1_1->setAvailableFields(json_encode(array(
+                'text'
+            )));
         $manager->persist($block1_1);
 
         $block1_2 = new Block();
@@ -45,7 +47,11 @@ class LoadAllData implements FixtureInterface
         $block1_2->setType(1);
         $block1_2->addTemplateSlot($templateSlot1_2);
         $block1_2->setHtmlSource('<h2>{{ headline }}</h2><p>{{ text }}</p>');
-        $block1_2->setAvailableFields('["headline","text"]');
+        $block1_2->setAvailableFields(
+            json_encode(array(
+                'headline',
+                'text'
+            )));
         $manager->persist($block1_2);
 
         $user1 = new User();
@@ -63,14 +69,18 @@ class LoadAllData implements FixtureInterface
         $blockData1_1->setCV($cv1);
         $blockData1_1->setTemplateSlot($templateSlot1_1);
         $blockData1_1->setBlock($block1_1);
-        $blockData1_1->setData('["text": "Mano CV pats geriausias ir gražiausias, todėl esu tinkamas betono nešiotojo darbams."]');
+        $blockData1_1->setData(json_encode(array(
+                'text' => 'Mano CV pats geriausias ir gražiausias, todėl esu tinkamas betono nešiotojo darbams.'
+            )));
         $manager->persist($blockData1_1);
 
         $blockData1_2 = new BlockData();
         $blockData1_2->setCV($cv1);
         $blockData1_2->setTemplateSlot($templateSlot1_1);
         $blockData1_2->setBlock($block1_1);
-        $blockData1_2->setData('["text": "Antras blockas į tą patį template slotą."]');
+        $blockData1_2->setData(json_encode(array(
+                'text' => 'Antras blockas į tą patį template slotą.'
+            )));
         $manager->persist($blockData1_2);
 
         $manager->flush();

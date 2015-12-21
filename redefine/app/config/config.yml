@@ -71,3 +71,4 @@ swiftmailer:
 services:
     cv_render:
         class: AppBundle\Service\CVRenderService
+        arguments: ['@twig']

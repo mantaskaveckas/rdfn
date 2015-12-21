@@ -27,6 +27,6 @@ class DefaultController extends Controller
     	$cv = $repository->createQueryBuilder('p')->setMaxResults(1)->getQuery()->getOneOrNullResult();
     	$cvRenderService = $this->get('cv_render');
 
-        return new Response($cvRenderService->render($cv));
+        return new Response($cvRenderService->getTemplateHtml($cv));
     }
 }
