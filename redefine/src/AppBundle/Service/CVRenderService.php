@@ -21,21 +21,32 @@ class CVRenderService {
 
 	public function getTemplateHtml($cv) {
 		$this->setBaseTemplate($cv->getTemplate()->getHtmlSource());
-		// generate template
+		// all slots just replace the base template from Template.html_source
 		$templateString = '{% extends \'base\' %}';
+		// each TemaplteSlot acts as a block in parent template
 		foreach($cv->getTemplate()->getTemplateSlots() as $slot) {
 			$templateString .= '{% block '.$slot->getWildcard().' %}';
+			// traverse through each slots blocks and fill it with data
 			foreach ($slot->getBlockDatas() as $data) {
 				$template = $this->twig->createTemplate($data->getBlock()->getHtmlSource());
-				$templateString .= $template->render(json_decode($data->getData(), true));
+				$parameters = json_decode($data->getData(), true);
+				// if data has embedded child data, generate template for each of them and include in parent template
+				if (count($data->getChildren()) > 0) {
+					$childrenString = '';
+					foreach ($data->getChildren() as $child) {
+						$childTemplate = $this->twig->createTemplate($child->getBlock()->getHtmlSource());
+						$childrenString .= $childTemplate->render(json_decode($child->getData(), true));
+					}
+					// if template is parent it must define 'blocks' variable where all children template will be inserted.
+					$parameters['blocks'] = $childrenString;
+				}
+				$templateString .= ($template->render($parameters));
 			}
 			$templateString .= '{% endblock %}';
 		}
 
 		$template = $this->twig->createTemplate($templateString);
-		return $template->render(array(
-			'text' => 'Fabien'
-		));
+		return $template->render(array());
 	}
 
 	protected function setBaseTemplate($templateString) {

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,11 +41,26 @@ class BlockData
     private $block;
 
     /**
+     * @ORM\OneToMany(targetEntity="BlockData", mappedBy="parent")
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BlockData", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     */
+    private $parent;
+
+    /**
      * @var data JSON array of used variable names and their values.
      *
      * @ORM\Column(name="data", type="text")
      */
     private $data;
+
+    public function __construct() {
+        $this->children = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -174,5 +190,63 @@ class BlockData
     public function getData()
     {
         return $this->data;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \AppBundle\Entity\BlockData $child
+     *
+     * @return BlockData
+     */
+    public function addChild(\AppBundle\Entity\BlockData $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \AppBundle\Entity\BlockData $child
+     */
+    public function removeChild(\AppBundle\Entity\BlockData $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\BlockData $parent
+     *
+     * @return BlockData
+     */
+    public function setParent(\AppBundle\Entity\BlockData $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\BlockData
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

@@ -54,6 +54,31 @@ class LoadAllData implements FixtureInterface
             )));
         $manager->persist($block1_2);
 
+        $block1_3 = new Block();
+        $block1_3->setTitle('Education');
+        $block1_3->setType(2);
+        $block1_3->addTemplateSlot($templateSlot1_2);
+        $block1_3->setHtmlSource('<h2>Education</h2><ul>{{ blocks|raw }}</ul>');
+        $block1_3->setAvailableFields(
+            json_encode(array(
+                'blocks'
+            )));
+        $manager->persist($block1_3);
+
+        $block1_3_1 = new Block();
+        $block1_3_1->setParent($block1_3);
+        $block1_3_1->setTitle('Education entry');
+        $block1_3_1->setType(3);
+        $block1_3_1->setHtmlSource('<li>{{ date_from }} - {{ date_to }}. {{ position }} at {{ company }}.</li>');
+        $block1_3_1->setAvailableFields(
+            json_encode(array(
+                'date_from',
+                'date_to',
+                'position',
+                'company'
+            )));
+        $manager->persist($block1_3_1);
+
         $user1 = new User();
         $user1->setEmail('testinis.meska@example.com');
         $manager->persist($user1);
@@ -82,6 +107,27 @@ class LoadAllData implements FixtureInterface
                 'text' => 'Antras blockas į tą patį template slotą.'
             )));
         $manager->persist($blockData1_2);
+
+        $blockData1_3 = new BlockData();
+        $blockData1_3->setCV($cv1);
+        $blockData1_3->setTemplateSlot($templateSlot1_2);
+        $blockData1_3->setBlock($block1_3);
+        $blockData1_3->setData(json_encode(array(
+                'blocks' => ''
+            )));
+        $manager->persist($blockData1_3);
+
+        $blockData1_3_1 = new BlockData();
+        $blockData1_3_1->setParent($blockData1_3);
+        $blockData1_3_1->setCV($cv1);
+        $blockData1_3_1->setBlock($block1_3_1);
+        $blockData1_3_1->setData(json_encode(array(
+                'date_from' => '2012-01-15',
+                'date_to' => '2015-05-12',
+                'position' => 'kastuvo padavėjas',
+                'company' => 'centrinės kapinės'
+            )));
+        $manager->persist($blockData1_3_1);
 
         $manager->flush();
     }
