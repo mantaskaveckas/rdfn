@@ -29,7 +29,7 @@ class Block
 
     /**
      * @ORM\ManyToOne(targetEntity="Block", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $parent;
 

@@ -45,11 +45,11 @@ class Template
     private $title;
 
     /**
-     * @var html_source HTML source of the template with wildcards to be replaced.
+     * @var template_path Path to base template in public_html/templates directory.
      *
-     * @ORM\Column(name="html_source", type="text")
+     * @ORM\Column(name="template_path", type="string", length=255)
      */
-    private $html_source;
+    private $templatePath;
 
     /**
      * @var \DateTime
@@ -225,27 +225,28 @@ class Template
         return $this->template_slots;
     }
 
+
     /**
-     * Set htmlSource
+     * Set templatePath
      *
-     * @param string $htmlSource
+     * @param string $templatePath
      *
      * @return Template
      */
-    public function setHtmlSource($htmlSource)
+    public function setTemplatePath($templatePath)
     {
-        $this->html_source = $htmlSource;
+        $this->templatePath = $templatePath;
 
         return $this;
     }
 
     /**
-     * Get htmlSource
+     * Get templatePath
      *
      * @return string
      */
-    public function getHtmlSource()
+    public function getTemplatePath()
     {
-        return $this->html_source;
+        return $this->templatePath;
     }
 }

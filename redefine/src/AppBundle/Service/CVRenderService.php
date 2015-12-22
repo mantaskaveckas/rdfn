@@ -20,9 +20,8 @@ class CVRenderService {
     }
 
 	public function getTemplateHtml($cv) {
-		$this->setBaseTemplate($cv->getTemplate()->getHtmlSource());
-		// all slots just replace the base template from Template.html_source
-		$templateString = '{% extends \'base\' %}';
+		// all slots just replace the twig blocks in base template from Template.templatePath
+		$templateString = '{% extends \'templates/'.$cv->getTemplate()->getTemplatePath().'.html.twig\' %}';
 		// each TemaplteSlot acts as a block in parent template
 		foreach($cv->getTemplate()->getTemplateSlots() as $slot) {
 			$templateString .= '{% block '.$slot->getWildcard().' %}';
@@ -47,13 +46,5 @@ class CVRenderService {
 
 		$template = $this->twig->createTemplate($templateString);
 		return $template->render(array());
-	}
-
-	protected function setBaseTemplate($templateString) {
-		$loader1 = $this->twig->getLoader();
-        $loader2 = new Twig_Loader_Array(array(
-        	'base' => $templateString
-		));
-		$this->twig->setLoader(new Twig_Loader_Chain(array($loader1, $loader2)));
 	}
 }
