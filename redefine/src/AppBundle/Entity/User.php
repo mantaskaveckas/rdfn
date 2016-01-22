@@ -4,14 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
@@ -20,14 +21,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
-     */
-    private $email;
+    protected $id;
 
     /**
      * @ORM\OneToMany(targetEntity="CV", mappedBy="user")
@@ -39,6 +33,15 @@ class User
         $this->cvs = new ArrayCollection();
     }
 
+    public function setEmail($email) {
+        parent::setEmail($email);
+        parent::setUsername($email);
+        parent::setUsernameCanonical($email);
+        $this->setEmailCanonical($email);
+        $this->setUsername($email);
+        $this->setUsernameCanonical($email);
+    }
+
     /**
      * Get id
      *
@@ -48,31 +51,7 @@ class User
     {
         return $this->id;
     }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
+   
     /**
      * Add cv
      *
