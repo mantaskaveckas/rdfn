@@ -83,7 +83,7 @@ class WorkExperienceController extends Controller
             $em->persist($workExperience);
             $em->flush();
 
-            return $this->redirectToRoute('workexperience_edit', array('id' => $workExperience->getId()));
+            return $this->redirectToRoute('workexperience_show', array('id' => $workExperience->getId()));
         }
 
         return $this->render('workexperience/edit.html.twig', array(

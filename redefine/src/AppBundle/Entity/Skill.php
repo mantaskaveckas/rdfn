@@ -24,7 +24,7 @@ class Skill
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="cv", inversedBy="workExperiences")
+     * @ORM\ManyToOne(targetEntity="cv", inversedBy="skills")
      * @ORM\JoinColumn(name="cv_id", referencedColumnName="id")
      */
     protected $cv;

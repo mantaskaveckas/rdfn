@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>WorkExperience edit</h1>
+    <h1>Education edit</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
@@ -10,7 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('cv_show', { 'id': workExperience.Cv.Id }) }}">Back to the cv</a>
+            <a href="{{ path('cv_show', { 'id': education.Cv.Id }) }}">Back to the cv</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

@@ -33,8 +33,8 @@
     </table>
 
     <ul>
-        <li>
-            <a href="{{ path('workexperience_index') }}">Back to the list</a>
+        <li>            
+            <a href="{{ path('cv_show', { 'id': workExperience.Cv.Id }) }}">Back to the cv</a>
         </li>
         <li>
             <a href="{{ path('workexperience_edit', { 'id': workExperience.id }) }}">Edit</a>
